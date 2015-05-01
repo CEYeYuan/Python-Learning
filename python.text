@@ -1,0 +1,58 @@
+Let's see some basic Python code for creating a class. We'll use the person example.
+
+class Person:
+    
+    def __init__(self, name, age, food):
+        """ (Person, string, int, string) -> NoneType
+        Create new Person object with given name, age, and favourite food.
+        """
+        self.name = name
+        self.age = age
+        self.favourite_food = food
+        self.mood = "Happy"
+This creates a new Person class with just a single method: __init__ is a special Python name for the constructor method of a class, and is how we create new objects of this class.
+
+The self parameter is another important keyword: it refers to the current object for which the method is being called. All this initializer does is take two parameters and set the new Person object's attributes to them.
+
+In the shell:
+
+>>> yoda = Person('Yoda', 500, 'chicken') # Notice *how* we call the constructor
+>>> yoda.name
+'Yoda'
+>>> yoda.age
+500
+>>> yoda.mood
+'Happy'
+>>> yoda.name = 'Sidious'
+>>> yoda.name
+'Sidious'
+
+Public vs. Private
+
+Notice that there is no concept of "private" attributes; we can both access and change all attributes outside of the class at will. Even though it seems like a good thing because it's easier to write code, we can also do things like creating new attributes at runtime:
+
+>>> yoda.powers = 'the force'
+>>> yoda.powers
+'the force'
+
+Not only does this lead to careless errors for beginners, it is most often the case that accessing attributes is unnecessary and undesirable for using the class. This is the principle of information hiding: when designing a class, we want to make a clear distinction between the public interface (the features of the class that other code outside the class may use), and the private implementation (i.e., how we've written the methods and attributes of the class). One of the biggest advantages of designing our programs in this way is that after our initial implementation, we can feel free to modify it (e.g., add new features or make it more efficient) without disturbing the public interface, and rest assured that this doesn't affect other code that might be using this class. Moreover, the public interface should be as "small" as possible: we want to restrict precisely what others can do with our classes, to others from abusing them.
+
+A Class Method
+
+Here's a simple example of creating a Person method for eating some food.
+
+    def eat(self, food):
+        """ (Person, string) -> NoneType
+
+        Make this person eat the food. Change the mood of this person if food
+        is the same as this person's favourite food.
+        """
+
+        if self.favourite_food == food:
+            self.mood = 'ecstatic'
+Notice again the use of the self keyword to stand in for the calling object.
+
+>>> yoda = Person('Yoda', 500, 'chicken')
+>>> yoda.eat('chicken')
+>>> yoda.mood
+'ecstatic'
